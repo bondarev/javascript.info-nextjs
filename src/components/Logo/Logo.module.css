@@ -1,0 +1,22 @@
+.logo {
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    display: block;
+}
+
+.sm {
+    font-size: var(--font-size-sm);
+}
+
+.md {
+    font-size: var(--font-size-base);
+}
+
+.lg {
+    font-size: var(--font-size-lg);
+}
+
+.xl {
+    font-size: var(--font-size-xl);
+}
