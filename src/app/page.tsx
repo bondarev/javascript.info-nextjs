@@ -20,11 +20,11 @@ async function HomePage() {
         </Link>
       </header>
       <RacketGrid rackets={rackets} priorityCount={6} />
-      <footer className={styles.footer}>
-        <Link href="/rackets" className={styles.button}>
+      <div className={styles.showMore}>
+        <Link href="/rackets" className={styles.showMoreButton}>
           Все ракетки
         </Link>
-      </footer>
+      </div>
     </>
   );
 }

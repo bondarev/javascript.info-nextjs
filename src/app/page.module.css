@@ -15,12 +15,12 @@
     font-size: var(--font-size-sm);
 }
 
-.footer {
+.showMore {
     margin-top: var(--spacing-xl);
     text-align: center;
 }
 
-.button {
+.showMoreButton {
     display: inline-grid;
     height: 3rem;
     place-content: center;
@@ -32,6 +32,6 @@
     transition: background-color var(--transition-base);
 }
 
-.button:hover {
+.showMoreButton:hover {
     background-color: var(--color-link-hover);
 }
