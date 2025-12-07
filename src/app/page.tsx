@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import styles from './page.module.css';
 import { getTop10Rackets } from '@/lib/api';
-import { RacketGrid } from '@/components';
+import { RacketGrid, Button } from '@/components';
 
 async function HomePage() {
   const rackets = await getTop10Rackets();
@@ -21,9 +21,7 @@ async function HomePage() {
       </header>
       <RacketGrid rackets={rackets} priorityCount={6} />
       <div className={styles.showMore}>
-        <Link href="/rackets" className={styles.showMoreButton}>
-          Все ракетки
-        </Link>
+        <Button href="/rackets">Все ракетки</Button>
       </div>
     </>
   );

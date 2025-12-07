@@ -19,19 +19,3 @@
     margin-top: var(--spacing-xl);
     text-align: center;
 }
-
-.showMoreButton {
-    display: inline-grid;
-    height: 3rem;
-    place-content: center;
-    padding: 0 var(--spacing-lg);
-    background-color: var(--color-link);
-    color: #fff;
-    border-radius: var(--radius-md);
-    font-size: var(--font-size-sm);
-    transition: background-color var(--transition-base);
-}
-
-.showMoreButton:hover {
-    background-color: var(--color-link-hover);
-}
