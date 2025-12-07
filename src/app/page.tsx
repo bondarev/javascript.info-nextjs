@@ -1,28 +1,42 @@
-import Link from 'next/link';
-
-import styles from './page.module.css';
-import { getTop10Rackets } from '@/lib/api';
-import { RacketGrid, Button } from '@/components';
+import { Suspense } from 'react';
+import { getRackets, getTop10Rackets } from '@/services';
+import { RacketsSection, RacketsSectionSkeleton } from '@/components';
 
 async function HomePage() {
-  const rackets = await getTop10Rackets();
+  const sectionPopularTitle = 'Популярные ракетки';
+  const sectionRacketsTitle = 'Ракетки';
+  const showMoreButton = true;
 
   return (
     <>
-      <header className={styles.header}>
-        <h1 className={styles.title}>ТОП-10 ракеток</h1>
-        <Link
-          href="/rackets"
-          className={styles.link}
-          aria-label="Смотреть все ракетки"
-        >
-          Все ↗
-        </Link>
-      </header>
-      <RacketGrid rackets={rackets} priorityCount={6} />
-      <div className={styles.showMore}>
-        <Button href="/rackets">Все ракетки</Button>
-      </div>
+      <Suspense
+        fallback={
+          <RacketsSectionSkeleton
+            title={sectionPopularTitle}
+            showMoreButton={showMoreButton}
+          />
+        }
+      >
+        <RacketsSection
+          title={sectionPopularTitle}
+          fetchData={getTop10Rackets}
+          showMoreButton={showMoreButton}
+        />
+      </Suspense>
+      <Suspense
+        fallback={
+          <RacketsSectionSkeleton
+            title={sectionRacketsTitle}
+            showMoreButton={showMoreButton}
+          />
+        }
+      >
+        <RacketsSection
+          title={sectionRacketsTitle}
+          fetchData={() => getRackets({ limit: 10 })}
+          showMoreButton={showMoreButton}
+        />
+      </Suspense>
     </>
   );
 }

@@ -2,29 +2,21 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 
 import styles from './page.module.css';
-import { getRacketById, getRackets } from '@/lib/api';
+import { getRacketById } from '@/services';
 import { Metadata } from 'next';
 
 export async function generateMetadata({
   params,
 }: PageProps<'/racket/[racketId]'>): Promise<Metadata> {
   const { racketId } = await params;
-  const racket = await getRacketById(Number(racketId));
+  const response = await getRacketById(Number(racketId));
 
-  if (!racket) return {};
+  if (!response.success) return {};
 
   return {
-    title: racket.name,
-    description: racket.description,
+    title: response.data.name,
+    description: response.data.description,
   };
-}
-
-export async function generateStaticParams() {
-  const rackets = await getRackets();
-
-  return rackets.slice(0, 3).map((racket) => ({
-    racketId: String(racket.id),
-  }));
 }
 
 export default RacketPage;
@@ -37,11 +29,13 @@ async function RacketPage({ params }: PageProps<'/racket/[racketId]'>) {
     notFound();
   }
 
-  const racket = await getRacketById(racketId);
+  const response = await getRacketById(racketId);
 
-  if (!racket) {
+  if (!response.success) {
     notFound();
   }
+
+  const racket = response.data;
 
   return (
     <article className={styles.page}>

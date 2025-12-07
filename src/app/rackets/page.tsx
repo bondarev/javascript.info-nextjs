@@ -1,46 +1,34 @@
 import styles from './page.module.css';
-import { getBrands, getRackets } from '@/lib/api';
-import { RacketGrid } from '@/components';
-import { clsx } from '@/lib/utils';
-import { Brand } from '@/types';
+import { getRackets } from '@/services';
+import {
+  BrandFilter,
+  BrandFilterSkeleton,
+  RacketsSection,
+  RacketsSectionSkeleton,
+} from '@/components';
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Найти ракетку для тенниса',
 };
 
 async function RacketsPage() {
-  const rackets = await getRackets();
-
-  const brands = await getBrands();
-  const brandOptions: Brand[] = [{ id: -1, name: 'All' }, ...brands];
-
   return (
     <div className={styles.page}>
       <aside className={styles.sidebar} aria-label="Фильтры">
-        <h2 className={styles.filterTitle}>Бренд</h2>
-        <ul
-          className={styles.filterList}
-          role="group"
-          aria-label="Фильтр по бренду"
-        >
-          {brandOptions.map(({ id, name: brand }) => (
-            <li key={id}>
-              <button
-                className={clsx(
-                  styles.filterButton,
-                  brand === 'All' && styles.filterButtonActive,
-                )}
-              >
-                {brand}
-              </button>
-            </li>
-          ))}
-        </ul>
+        <Suspense fallback={<BrandFilterSkeleton />}>
+          <BrandFilter />
+        </Suspense>
       </aside>
       <section className={styles.content}>
-        <h1 className={styles.title}>Все ракетки</h1>
-        <RacketGrid rackets={rackets} priorityCount={12} />
+        <Suspense fallback={<RacketsSectionSkeleton title="Все ракетки" />}>
+          <RacketsSection
+            title="Все ракетки"
+            fetchData={() => getRackets({ limit: 20 })}
+            priorityImagesCount={12}
+          />
+        </Suspense>
       </section>
     </div>
   );

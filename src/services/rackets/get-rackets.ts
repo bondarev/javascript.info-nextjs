@@ -12,7 +12,7 @@ function getRackets({
   page = 1,
   brandName,
 }: Params): Promise<ApiResponse<Racket[]>> {
-  return apiClient.get<Racket[]>('/products', {
+  return apiClient.get<Racket[]>('products', {
     limit,
     page,
     brand: brandName,
