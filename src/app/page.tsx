@@ -1,42 +1,44 @@
 import { Suspense } from 'react';
-import { getRackets, getTop10Rackets } from '@/services';
+import { getRackets, getTop10Rackets, type ApiResponse } from '@/services';
 import { RacketsSection, RacketsSectionSkeleton } from '@/components';
+import type { Racket } from '@/types';
+
+type SectionConfig = {
+  title: string;
+  fetchData: () => Promise<ApiResponse<Racket[]>>;
+  showMoreButton?: boolean;
+  priorityImagesCount?: number;
+};
 
 async function HomePage() {
-  const sectionPopularTitle = 'Популярные ракетки';
-  const sectionRacketsTitle = 'Ракетки';
-  const showMoreButton = true;
+  const sections: SectionConfig[] = [
+    {
+      title: 'Популярные ракетки',
+      fetchData: getTop10Rackets,
+      showMoreButton: true,
+    },
+    {
+      title: 'Ракетки',
+      fetchData: () => getRackets({ limit: 10 }),
+      showMoreButton: true,
+    },
+  ];
 
   return (
     <>
-      <Suspense
-        fallback={
-          <RacketsSectionSkeleton
-            title={sectionPopularTitle}
-            showMoreButton={showMoreButton}
-          />
-        }
-      >
-        <RacketsSection
-          title={sectionPopularTitle}
-          fetchData={getTop10Rackets}
-          showMoreButton={showMoreButton}
-        />
-      </Suspense>
-      <Suspense
-        fallback={
-          <RacketsSectionSkeleton
-            title={sectionRacketsTitle}
-            showMoreButton={showMoreButton}
-          />
-        }
-      >
-        <RacketsSection
-          title={sectionRacketsTitle}
-          fetchData={() => getRackets({ limit: 10 })}
-          showMoreButton={showMoreButton}
-        />
-      </Suspense>
+      {sections.map((section, index) => (
+        <Suspense
+          key={index}
+          fallback={
+            <RacketsSectionSkeleton
+              title={section.title}
+              showMoreButton={section.showMoreButton}
+            />
+          }
+        >
+          <RacketsSection {...section} />
+        </Suspense>
+      ))}
     </>
   );
 }

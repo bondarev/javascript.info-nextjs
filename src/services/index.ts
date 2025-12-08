@@ -4,3 +4,5 @@ export {
   getRacketById,
   getBrands,
 } from './rackets';
+
+export type { ApiResponse } from './api-client';
