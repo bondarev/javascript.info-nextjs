@@ -1,5 +1,22 @@
 .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-lg);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.cardSkeleton {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.imageSkeleton {
+  aspect-ratio: 3 / 4;
+  border-bottom: 1px solid var(--color-border);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.nameSkeleton {
+  width: 70%;
+  height: 1.5rem;
+  margin: var(--spacing-md);
 }

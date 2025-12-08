@@ -15,7 +15,8 @@ type NavLinkProps = {
 
 const NAV_LINKS: NavLinkProps[] = [
   { href: '/', label: 'Главная' },
-  { href: '/rackets', label: 'Ракетки' },
+  { href: '/rackets/top-10', label: 'ТОП-10' },
+  { href: '/rackets', label: 'Все ракетки' },
 ];
 
 function NavLink({ href, label }: NavLinkProps) {

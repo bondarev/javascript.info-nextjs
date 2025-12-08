@@ -15,4 +15,7 @@ export interface Racket {
   description: string;
   brandId: number;
   brand: Brand;
+  userData?: {
+    isFavorite: boolean;
+  } | null;
 }
