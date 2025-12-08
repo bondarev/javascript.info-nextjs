@@ -4,31 +4,34 @@ import { RacketsSection, RacketsSectionSkeleton } from '@/components';
 import type { Racket } from '@/types';
 
 type SectionConfig = {
+  id: string;
   title: string;
   fetchData: () => Promise<ApiResponse<Racket[]>>;
   showMoreButton?: boolean;
   priorityImagesCount?: number;
 };
 
-async function HomePage() {
-  const sections: SectionConfig[] = [
-    {
-      title: 'Популярные ракетки',
-      fetchData: getTop10Rackets,
-      showMoreButton: true,
-    },
-    {
-      title: 'Ракетки',
-      fetchData: () => getRackets({ limit: 10 }),
-      showMoreButton: true,
-    },
-  ];
+const pageSections: SectionConfig[] = [
+  {
+    id: 'popular',
+    title: 'Популярные ракетки',
+    fetchData: getTop10Rackets,
+    showMoreButton: true,
+  },
+  {
+    id: 'all',
+    title: 'Ракетки',
+    fetchData: () => getRackets({ limit: 10 }),
+    showMoreButton: true,
+  },
+];
 
+async function HomePage() {
   return (
     <>
-      {sections.map((section, index) => (
+      {pageSections.map((section) => (
         <Suspense
-          key={index}
+          key={section.id}
           fallback={
             <RacketsSectionSkeleton
               title={section.title}
