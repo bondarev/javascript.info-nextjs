@@ -1,10 +1,12 @@
 export { BrandFilter } from './BrandFilter/BrandFilter';
 export { BrandFilterSkeleton } from './BrandFilter/BrandFilterSkeleton';
 export { Button } from './Button/Button';
+export { NotFoundError, ServerError } from './errors';
 export { Footer } from './Footer/Footer';
 export { Header } from './Header/Header';
+export { Link } from './Link/Link';
 export { Logo } from './Logo/Logo';
-export { NotFound } from './NotFound/NotFound';
+export { Racket, RacketSkeleton } from './racket';
 export { RacketCard } from './RacketCard/RacketCard';
 export { RacketGrid } from './RacketGrid/RacketGrid';
 export { RacketGridSkeleton } from './RacketGrid/RacketGridSkeleton';

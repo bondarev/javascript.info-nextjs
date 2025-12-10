@@ -1,12 +1,11 @@
-import { NotFound } from '@/components';
+import { NotFoundError } from '@/components';
 
 export default function RacketNotFound() {
   return (
-    <NotFound
-      message="Ракетка не найдена"
+    <NotFoundError
+      title="Ракетка не найдена"
       description="К сожалению, такой ракетки не существует в нашем каталоге"
-      buttonText="← К каталогу"
-      buttonHref="/rackets"
+      button={{ text: '← К каталогу', href: '/rackets' }}
     />
   );
 }

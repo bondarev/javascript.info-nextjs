@@ -1,7 +1,7 @@
-import Link from 'next/link';
 import Image from 'next/image';
 
 import styles from './RacketCard.module.css';
+import { Link } from '@/components';
 import { Racket } from '@/types';
 
 type RacketCardProps = {

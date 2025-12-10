@@ -1,3 +1,3 @@
-import { NotFound } from '@/components';
+import { NotFoundError } from '@/components';
 
-export default NotFound;
+export default NotFoundError;

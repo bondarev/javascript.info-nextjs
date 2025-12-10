@@ -1,7 +1,7 @@
 import { clsx } from '@/lib/utils';
-import styles from './page.module.css';
+import styles from './racket.module.css';
 
-export default function RacketLoading() {
+function RacketSkeleton() {
   return (
     <article className={styles.page}>
       <header className={styles.info}>
@@ -30,3 +30,5 @@ export default function RacketLoading() {
     </article>
   );
 }
+
+export { RacketSkeleton };
