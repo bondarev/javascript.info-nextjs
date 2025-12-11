@@ -7,7 +7,7 @@ type Props = ComponentProps<typeof NextLink>;
 
 function Link({ children, ...props }: Props) {
   return (
-    <NextLink {...props} prefetch={props.prefetch ?? false}>
+    <NextLink prefetch={false} {...props}>
       {children}
     </NextLink>
   );
