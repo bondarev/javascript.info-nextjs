@@ -24,10 +24,11 @@ const apiClient = {
   async get<T>(
     endpoint: string,
     params?: QueryParams,
+    options?: RequestInit,
   ): Promise<ApiResponse<T>> {
     try {
       const url = buildUrl(endpoint, params);
-      const response = await fetch(url);
+      const response = await fetch(url, options);
 
       if (!response.ok) {
         return {

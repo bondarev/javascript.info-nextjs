@@ -1,6 +1,5 @@
-import Link from 'next/link';
-
 import styles from './Button.module.css';
+import { Link } from '@/components';
 
 type ButtonProps = {
   href?: string;

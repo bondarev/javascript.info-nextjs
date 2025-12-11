@@ -1,11 +1,10 @@
 'use client';
 
-import Link from 'next/link';
 import { Route } from 'next';
 import { usePathname } from 'next/navigation';
 
 import styles from './Header.module.css';
-import { Logo } from '@/components';
+import { Link, Logo } from '@/components';
 import { clsx } from '@/lib/utils';
 
 type NavLinkProps = {

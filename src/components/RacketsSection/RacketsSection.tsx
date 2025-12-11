@@ -1,7 +1,5 @@
-import Link from 'next/link';
-
 import styles from './RacketsSection.module.css';
-import { RacketGrid, Button } from '@/components';
+import { RacketGrid, Button, Link } from '@/components';
 import { ApiResponse } from '@/services/api-client';
 import { Racket } from '@/types';
 

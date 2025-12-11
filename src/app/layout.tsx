@@ -4,6 +4,7 @@ import '@/styles/globals.css';
 
 import styles from './layout.module.css';
 import { Header, Footer } from '@/components';
+import NextTopLoader from 'nextjs-toploader';
 
 export const metadata: Metadata = {
   title: {
@@ -28,6 +29,7 @@ function Layout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="ru">
       <body>
+        <NextTopLoader color="#f59e0b" height={8} showSpinner={false} />
         <div className={styles.wrapper}>
           <Header />
           <main className={styles.main}>{children}</main>

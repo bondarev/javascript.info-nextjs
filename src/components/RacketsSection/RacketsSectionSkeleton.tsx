@@ -1,7 +1,5 @@
-import Link from 'next/link';
-
 import styles from './RacketsSection.module.css';
-import { RacketGridSkeleton, Button } from '@/components';
+import { RacketGridSkeleton, Button, Link } from '@/components';
 
 type RacketsSectionSkeletonProps = {
   title: string;

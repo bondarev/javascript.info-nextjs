@@ -1,15 +1,33 @@
 import { notFound } from 'next/navigation';
-import Image from 'next/image';
-
-import styles from './page.module.css';
-import { getRacketById } from '@/services';
+import { Suspense } from 'react';
 import { Metadata } from 'next';
+
+import { getMetaRacketById } from '@/services';
+import { Racket, RacketSkeleton } from '@/components';
+
+async function parseRacketId(
+  params: Promise<{ racketId: string }>,
+): Promise<number | null> {
+  const { racketId } = await params;
+  const id = Number(racketId);
+
+  if (Number.isNaN(id) || id < 1) {
+    return null;
+  }
+
+  return id;
+}
 
 export async function generateMetadata({
   params,
 }: PageProps<'/racket/[racketId]'>): Promise<Metadata> {
-  const { racketId } = await params;
-  const response = await getRacketById(Number(racketId));
+  const racketId = await parseRacketId(params);
+
+  if (racketId === null) {
+    return {};
+  }
+
+  const response = await getMetaRacketById(racketId);
 
   if (!response.success) return {};
 
@@ -19,43 +37,21 @@ export async function generateMetadata({
   };
 }
 
-export default RacketPage;
-
 async function RacketPage({ params }: PageProps<'/racket/[racketId]'>) {
-  const { racketId: racketIdParam } = await params;
-  const racketId = Number(racketIdParam);
+  const racketId = await parseRacketId(params);
 
-  if (Number.isNaN(racketId)) {
+  if (racketId === null) {
     notFound();
   }
 
-  const response = await getRacketById(racketId);
-
-  if (!response.success) {
-    notFound();
-  }
-
-  const racket = response.data;
+  // Force metadata to resolve before streaming starts
+  await getMetaRacketById(racketId);
 
   return (
-    <article className={styles.page}>
-      <header className={styles.info}>
-        <span className={styles.brand}>{racket.brand.name}</span>
-        <h1 className={styles.name}>{racket.name}</h1>
-        <p className={styles.description}>{racket.description}</p>
-      </header>
-      <figure className={styles.imageWrapper}>
-        <Image
-          src={racket.imageUrl}
-          alt={`Теннисная ракетка ${racket.name}`}
-          fill
-          priority
-          className={styles.image}
-        />
-      </figure>
-      <div className={styles.price} aria-label={`Цена: ${racket.price} евро`}>
-        €{racket.price.toFixed(2)}
-      </div>
-    </article>
+    <Suspense fallback={<RacketSkeleton />}>
+      <Racket racketId={racketId} />
+    </Suspense>
   );
 }
+
+export default RacketPage;
